@@ -1,66 +1,66 @@
-# BridgeLabz Training 2Y
+# Data Structures and Algorithms Practice Sheet
 
-This is my BridgeLabz training repository. The `main` branch contains only this
-README, which provides an overview of how I organize my assignment branches.
-I maintain each module in its own branch.
+This `Array` branch contains my solutions for the DSA practice sheet covering
+pseudocode, flowcharts, time complexity, and space complexity.
 
-## My Branch Organization
+## Folder Structure
 
 ```text
-main
-└── README.md
-
-Arrays
-└── Arrays/
-    ├── Level1/                 # When the assignment has levels
-    ├── Level2/
-    └── *.java                 # Otherwise, Java files go here
-
-Strings
-└── Strings/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Searching-And-Sorting
-└── Searching-And-Sorting/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Recursion
-└── Recursion/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Linked-List
-└── Linked-List/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Stack
-└── Stack/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Queue
-└── Queue/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
+Array/
+├── Section 1 - Pseudocode Problems/
+│   ├── PrimeCheck.java
+│   ├── NumberDigitReversal.java
+│   └── PseudocodeAnswers.txt
+│
+├── Section 2 - Flowchart Problems/
+│   ├── PrimeNumberFlowchart.md
+│   └── NumberDigitReversalFlowchart.md
+│
+├── Section 3 - Time Complexity Problems/
+│   ├── LinearSearchTimeComplexity.java
+│   ├── IterativeBinarySearchComplexity.java
+│   └── MergeSortTimeComplexity.java
+│
+└── Section 4 - Space Complexity Problems/
+    ├── LinearSearchSpaceComplexity.java
+    ├── BinarySearchSpaceComplexity.java
+    └── MergeSortSpaceComplexity.java
 ```
 
-## How I Organize My Assignments
+## Section Details
 
-- I use a separate branch for each module listed above.
-- Every module branch contains a folder with the same name as the branch.
-- When a day's assignments are divided into levels, I organize the Java files
-  inside the module's `Level1` and `Level2` folders.
-- When an assignment does not have levels, I keep its Java files directly in
-  the module folder.
-- I give each Java file a meaningful PascalCase name based on the problem it
-  solves. For example, a program that finds the second-largest array element is
-  named `SecondLargestElement.java`.
+### Section 1: Pseudocode Problems
+
+- Prime number checking optimized to test divisors only up to the square root.
+- Mathematical digit reversal using remainder and integer division.
+- The pseudocode is available in the Java comment blocks and in
+  `PseudocodeAnswers.txt` for submission.
+
+### Section 2: Flowchart Problems
+
+- Prime number checker flowchart.
+- Number digit reversal flowchart.
+- Both flowcharts use Mermaid syntax and can be rendered directly on GitHub.
+
+### Section 3: Time Complexity Problems
+
+- Linear Search best, average, and worst-case analysis.
+- Iterative Binary Search range-narrowing steps and `O(log N)` derivation.
+- Merge Sort split tree, recurrence, and `O(N log N)` analysis.
+
+### Section 4: Space Complexity Problems
+
+- Iterative Linear Search auxiliary space: `O(1)`.
+- Iterative Binary Search auxiliary space: `O(1)`.
+- Merge Sort auxiliary space: `O(N)`, including a comparison with in-place
+  sorting algorithms.
+
+## Running the Java Programs
+
+Compile and run a file from its corresponding section folder. For example:
+
+```bash
+cd "Array/Section 1 - Pseudocode Problems"
+javac PrimeCheck.java
+java PrimeCheck 61
+```
