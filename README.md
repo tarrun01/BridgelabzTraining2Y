@@ -1,66 +1,54 @@
 # BridgeLabz Training 2Y
 
-This is my BridgeLabz training repository. The `main` branch contains only this
-README, which provides an overview of how I organize my assignment branches.
-I maintain each module in its own branch.
+This is my BridgeLabz training repository. I keep each module in a separate
+branch, while the `main` branch contains only this README as an index of my
+work.
 
-## My Branch Organization
+I update this index whenever I add or modify a branch so that it shows the
+latest folder titles and filenames.
+
+## Repository Branches
+
+- `Array`
+- `Strings`
+- `Searching-And-Sorting`
+- `Recursion`
+- `Linked-List`
+- `Stack`
+- `Queue`
+
+## Main Branch
 
 ```text
 main
 └── README.md
-
-Arrays
-└── Arrays/
-    ├── Level1/                 # When the assignment has levels
-    ├── Level2/
-    └── *.java                 # Otherwise, Java files go here
-
-Strings
-└── Strings/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Searching-And-Sorting
-└── Searching-And-Sorting/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Recursion
-└── Recursion/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Linked-List
-└── Linked-List/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Stack
-└── Stack/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
-
-Queue
-└── Queue/
-    ├── Level1/
-    ├── Level2/
-    └── *.java
 ```
 
-## How I Organize My Assignments
+## Array Branch
 
-- I use a separate branch for each module listed above.
-- Every module branch contains a folder with the same name as the branch.
-- When a day's assignments are divided into levels, I organize the Java files
-  inside the module's `Level1` and `Level2` folders.
-- When an assignment does not have levels, I keep its Java files directly in
-  the module folder.
-- I give each Java file a meaningful PascalCase name based on the problem it
-  solves. For example, a program that finds the second-largest array element is
-  named `SecondLargestElement.java`.
+The `Array` branch currently contains my DSA practice sheet solutions.
+
+```text
+Array/
+├── Section 1 - Pseudocode Problems/
+│   ├── PrimeCheck.java
+│   ├── NumberDigitReversal.java
+│   └── PseudocodeAnswers.txt
+│
+├── Section 2 - Flowchart Problems/
+│   ├── PrimeNumberFlowchart.md
+│   └── NumberDigitReversalFlowchart.md
+│
+├── Section 3 - Time Complexity Problems/
+│   ├── LinearSearchTimeComplexity.java
+│   ├── IterativeBinarySearchComplexity.java
+│   └── MergeSortTimeComplexity.java
+│
+└── Section 4 - Space Complexity Problems/
+    ├── LinearSearchSpaceComplexity.java
+    ├── BinarySearchSpaceComplexity.java
+    └── MergeSortSpaceComplexity.java
+```
+
+The remaining branch sections will be added here as I add assignments to those
+branches.
