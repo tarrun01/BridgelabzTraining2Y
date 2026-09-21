@@ -19,8 +19,6 @@ class Book {
 
 public class LibraryManagementSystem {
 
-    // Task 1: Remove Duplicate Books In-Place (array sorted by bookId)
-    // Time: O(N), Space: O(1). Returns new count M of unique books.
     public static int removeDuplicates(Book[] books, int n) {
         if (n == 0 || n == 1) {
             return n;
@@ -34,9 +32,6 @@ public class LibraryManagementSystem {
         }
         return j + 1;
     }
-
-    // Task 2: Partial Title Search (case-insensitive)
-    // Time: O(N * L), Space: O(1).
     public static void searchByTitle(Book[] books, int count, String query) {
         System.out.println("Search Results for '" + query + "':");
         String lowerQuery = query.toLowerCase();
@@ -51,9 +46,6 @@ public class LibraryManagementSystem {
             System.out.println("No books found matching '" + query + "'.");
         }
     }
-
-    // Task 3: Sort by Price (Selection Sort, ascending)
-    // Time: O(N^2), Space: O(1). Counts and prints swaps.
     public static void sortByPrice(Book[] books, int count) {
         int swaps = 0;
         for (int i = 0; i < count - 1; i++) {
@@ -77,8 +69,6 @@ public class LibraryManagementSystem {
         System.out.println("Total Swaps: " + swaps);
     }
 
-    // Task 4: Search by Price using Binary Search (requires price-sorted array)
-    // Time: O(log N), Space: O(1). Returns index if found, else -1.
     public static int searchByPrice(Book[] books, int count, double targetPrice) {
         int low = 0;
         int high = count - 1;
@@ -94,9 +84,6 @@ public class LibraryManagementSystem {
         }
         return -1;
     }
-
-    // Task 5: Sliding Window - minimum consecutive books with total price >= targetCost
-    // Time: O(N), Space: O(1). Returns 0 if no such group exists.
     public static int minBooksForTargetCost(Book[] books, int count, double targetCost) {
         int minLen = Integer.MAX_VALUE;
         double currentSum = 0;
@@ -116,16 +103,14 @@ public class LibraryManagementSystem {
     }
 
     public static void main(String[] args) {
-        // Sample Test Case: 6 books with 1 duplicate (sorted by bookId)
         Book[] books = new Book[6];
         books[0] = new Book(101, "Data Structures", "Mark", 400.0);
-        books[1] = new Book(101, "Data Structures", "Mark", 400.0); // Duplicate
+        books[1] = new Book(101, "Data Structures", "Mark", 400.0);
         books[2] = new Book(102, "Java Basics", "James", 300.0);
         books[3] = new Book(103, "Python Guide", "Guido", 600.0);
         books[4] = new Book(104, "Database Systems", "Raghu", 500.0);
         books[5] = new Book(105, "Computer Networks", "Andrew", 700.0);
 
-        // Task 1: Remove Duplicates
         int count = removeDuplicates(books, books.length);
         System.out.println("1. After Task 1 (Remove Duplicates):");
         System.out.println("Unique Books Count: " + count);
@@ -135,17 +120,13 @@ public class LibraryManagementSystem {
         }
         System.out.println();
 
-        // Task 2: Partial Title Search
         System.out.println("2. After Task 2 (Search Query: \"data\"):");
         searchByTitle(books, count, "data");
         System.out.println();
-
-        // Task 3: Sort by Price
         System.out.println("3. After Task 3 (Sort by Price):");
         sortByPrice(books, count);
         System.out.println();
 
-        // Task 4: Search by Price (Binary Search)
         double targetPrice = 500.0;
         System.out.println("4. After Task 4 (Search for Price: " + targetPrice + "):");
         System.out.println("Searching for Price Rs. " + targetPrice + "...");
@@ -158,7 +139,6 @@ public class LibraryManagementSystem {
         }
         System.out.println();
 
-        // Task 5: Sliding Window
         double targetCost = 1000.0;
         System.out.println("5. After Task 5 (Sliding Window for Target Cost S = Rs. " + targetCost + "):");
         System.out.println("Finding minimum consecutive books whose total price >= Rs. " + targetCost + "...");
