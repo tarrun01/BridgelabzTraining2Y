@@ -8,109 +8,64 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
-/**
- * Challenge: 1M concatenation timing comparison plus large temp file
- * word counting via FileReader and InputStreamReader with timing.
- */
 public class StringAndFileChallenge {
 
-    private static final int CONCAT_COUNT = 1000000;
-    private static final int FILE_WORDS = 200000;
+    public static void main(String[] args) {
+        int n = 100000;
 
-    public static void stringConcatTiming() {
-        long startBuffer = System.nanoTime();
+        long start1 = System.nanoTime();
         StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < CONCAT_COUNT; i++) {
+        for (int i = 0; i < n; i++) {
             buffer.append("hello");
         }
-        long endBuffer = System.nanoTime();
-        double bufferMs = (endBuffer - startBuffer) / 1_000_000.0;
+        long end1 = System.nanoTime();
+        System.out.println("StringBuffer length: " + buffer.length() + " time: " + (end1 - start1) / 1000000 + " ms");
 
-        long startBuilder = System.nanoTime();
+        long start2 = System.nanoTime();
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < CONCAT_COUNT; i++) {
+        for (int i = 0; i < n; i++) {
             builder.append("hello");
         }
-        long endBuilder = System.nanoTime();
-        double builderMs = (endBuilder - startBuilder) / 1_000_000.0;
+        long end2 = System.nanoTime();
+        System.out.println("StringBuilder length: " + builder.length() + " time: " + (end2 - start2) / 1000000 + " ms");
 
-        System.out.println("Concatenations: " + CONCAT_COUNT + " x \"hello\"");
-        System.out.println("StringBuffer: " + String.format("%.3f", bufferMs)
-                + " ms, length=" + buffer.length());
-        System.out.println("StringBuilder: " + String.format("%.3f", builderMs)
-                + " ms, length=" + builder.length());
-    }
-
-    public static File createLargeTempFile() throws IOException {
-        File temp = File.createTempFile("large_sample", ".txt");
-        try (FileWriter fw = new FileWriter(temp);
-             BufferedWriter writer = new BufferedWriter(fw)) {
-            for (int i = 0; i < FILE_WORDS; i++) {
-                writer.write("hello world java ");
-                if (i % 10 == 9) {
+        try {
+            File file = File.createTempFile("sample", ".txt");
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                for (int i = 0; i < 20000; i++) {
+                    writer.write("hello world java");
                     writer.newLine();
                 }
             }
-        }
-        System.out.println("Created temp file: " + temp.getAbsolutePath());
-        return temp;
-    }
+            System.out.println("Made file: " + file.getAbsolutePath());
 
-    public static long countWordsWithFileReader(File file) throws IOException {
-        long count = 0;
-        try (FileReader fr = new FileReader(file);
-             BufferedReader reader = new BufferedReader(fr)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String trimmed = line.trim();
-                if (!trimmed.isEmpty()) {
-                    count += trimmed.split("\\s+").length;
+            // count words with FileReader
+            int count1 = 0;
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] words = line.split(" ");
+                    count1 = count1 + words.length;
                 }
             }
-        }
-        return count;
-    }
+            System.out.println("FileReader words: " + count1);
 
-    public static long countWordsWithInputStreamReader(File file) throws IOException {
-        long count = 0;
-        try (FileInputStream fis = new FileInputStream(file);
-             InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
-             BufferedReader reader = new BufferedReader(isr)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String trimmed = line.trim();
-                if (!trimmed.isEmpty()) {
-                    count += trimmed.split("\\s+").length;
+            // count words with InputStreamReader
+            int count2 = 0;
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] words = line.split(" ");
+                    count2 = count2 + words.length;
                 }
             }
-        }
-        return count;
-    }
+            System.out.println("InputStreamReader words: " + count2);
 
-    public static void main(String[] args) {
-        stringConcatTiming();
-        try {
-            File temp = createLargeTempFile();
-
-            long start1 = System.nanoTime();
-            long count1 = countWordsWithFileReader(temp);
-            long end1 = System.nanoTime();
-            System.out.println("FileReader word count: " + count1
-                    + ", time: " + String.format("%.3f", (end1 - start1) / 1_000_000.0) + " ms");
-
-            long start2 = System.nanoTime();
-            long count2 = countWordsWithInputStreamReader(temp);
-            long end2 = System.nanoTime();
-            System.out.println("InputStreamReader word count: " + count2
-                    + ", time: " + String.format("%.3f", (end2 - start2) / 1_000_000.0) + " ms");
-
-            if (temp.delete()) {
-                System.out.println("Deleted temp file.");
-            }
+            file.delete();
+            System.out.println("Deleted temp file.");
         } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

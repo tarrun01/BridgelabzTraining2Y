@@ -6,49 +6,37 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Counts occurrences of a target word in a file (case-insensitive).
- */
 public class CountWordOccurrence {
 
-    public static void ensureSampleFile(String filePath) throws IOException {
-        File file = new File(filePath);
-        if (!file.exists()) {
-            try (FileWriter writer = new FileWriter(file)) {
-                writer.write("Java is fun. Java is powerful." + System.lineSeparator());
-                writer.write("I love JAVA programming, java everywhere." + System.lineSeparator());
+    public static void main(String[] args) {
+        String filePath = "wordcount.txt";
+        String target = "java";
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                try (FileWriter writer = new FileWriter(file)) {
+                    writer.write("Java is fun. Java is powerful.\n");
+                    writer.write("I love JAVA programming java everywhere.\n");
+                }
+                System.out.println("Created file: " + filePath);
             }
-            System.out.println("Created demo file: " + filePath);
-        }
-    }
-
-    public static int countOccurrence(String filePath, String target) throws IOException {
-        int count = 0;
-        try (FileReader fileReader = new FileReader(filePath);
-             BufferedReader reader = new BufferedReader(fileReader)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] words = line.split("\\W+");
-                for (String word : words) {
-                    if (word.equalsIgnoreCase(target)) {
-                        count++;
+            int count = 0;
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] words = line.split("\\s+");
+                    for (int i = 0; i < words.length; i++) {
+                        String w = words[i].replace(",", "").replace(".", "");
+                        if (w.equalsIgnoreCase(target)) {
+                            count++;
+                        }
                     }
                 }
             }
-        }
-        return count;
-    }
-
-    public static void main(String[] args) {
-        String filePath = "sample.txt";
-        String target = "java";
-        try {
-            ensureSampleFile(filePath);
-            int count = countOccurrence(filePath, target);
-            System.out.println("Target word: \"" + target + "\"");
-            System.out.println("Occurrences in " + filePath + ": " + count);
+            System.out.println("Word: " + target);
+            System.out.println("Count in " + filePath + ": " + count);
         } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

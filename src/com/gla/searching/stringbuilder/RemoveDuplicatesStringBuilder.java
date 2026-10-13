@@ -1,22 +1,17 @@
 package com.gla.searching.stringbuilder;
 
 import java.util.HashSet;
-import java.util.Set;
 
-/**
- * Removes duplicate characters preserving order using HashSet + StringBuilder.
- */
 public class RemoveDuplicatesStringBuilder {
 
+    // remove duplicate chars and keep first order
     public static String removeDuplicates(String input) {
-        if (input == null) {
-            return null;
-        }
-        Set<Character> seen = new HashSet<>();
+        HashSet<Character> seen = new HashSet<Character>();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
-            if (seen.add(c)) {
+            if (!seen.contains(c)) {
+                seen.add(c);
                 sb.append(c);
             }
         }
@@ -25,10 +20,8 @@ public class RemoveDuplicatesStringBuilder {
 
     public static void main(String[] args) {
         String input = "programming";
-        String result = removeDuplicates(input);
         System.out.println("Original: " + input);
-        System.out.println("Without duplicates: " + result);
-
+        System.out.println("Without duplicates: " + removeDuplicates(input));
         String input2 = "hello world";
         System.out.println("Original: " + input2);
         System.out.println("Without duplicates: " + removeDuplicates(input2));
