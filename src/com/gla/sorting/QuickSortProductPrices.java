@@ -2,31 +2,23 @@ package com.gla.sorting;
 
 import java.util.Arrays;
 
-/** Quick Sort for product prices (double[]), using last element as pivot. */
 public class QuickSortProductPrices {
 
-    /** Sorts the array in ascending order using quick sort. */
-    public static void sort(double[] prices) {
-        if (prices == null || prices.length < 2) {
-            return;
-        }
-        quickSort(prices, 0, prices.length - 1);
-    }
-
-    private static void quickSort(double[] arr, int low, int high) {
+    public static void quickSort(double[] arr, int low, int high) {
         if (low < high) {
-            int pi = partition(arr, low, high);
-            quickSort(arr, low, pi - 1);
-            quickSort(arr, pi + 1, high);
+            int p = partition(arr, low, high);
+            // sort left and right parts
+            quickSort(arr, low, p - 1);
+            quickSort(arr, p + 1, high);
         }
     }
 
-    // Partition using last element as pivot; returns final pivot index.
-    private static int partition(double[] arr, int low, int high) {
+    public static int partition(double[] arr, int low, int high) {
         double pivot = arr[high];
         int i = low - 1;
+        // move small values to left side
         for (int j = low; j < high; j++) {
-            if (arr[j] <= pivot) {
+            if (arr[j] < pivot) {
                 i++;
                 double temp = arr[i];
                 arr[i] = arr[j];
@@ -40,9 +32,9 @@ public class QuickSortProductPrices {
     }
 
     public static void main(String[] args) {
-        double[] prices = {1299.00, 499.99, 899.50, 199.99, 1499.00, 749.25};
+        double[] prices = {999.0, 499.50, 1499.99, 299.0, 799.25};
         System.out.println("Before: " + Arrays.toString(prices));
-        sort(prices);
-        System.out.println("After:  " + Arrays.toString(prices));
+        quickSort(prices, 0, prices.length - 1);
+        System.out.println("After: " + Arrays.toString(prices));
     }
 }

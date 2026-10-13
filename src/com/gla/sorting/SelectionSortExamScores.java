@@ -2,33 +2,28 @@ package com.gla.sorting;
 
 import java.util.Arrays;
 
-/** Selection Sort for exam scores. */
 public class SelectionSortExamScores {
 
-    /** Sorts the array in ascending order using selection sort. */
-    public static void sort(int[] scores) {
-        if (scores == null || scores.length < 2) {
-            return;
-        }
-        for (int i = 0; i < scores.length - 1; i++) {
+    public static void selectionSort(int[] arr) {
+        int n = arr.length;
+        // find smallest and put it in front
+        for (int i = 0; i < n - 1; i++) {
             int minIndex = i;
-            // Find minimum in unsorted part
-            for (int j = i + 1; j < scores.length; j++) {
-                if (scores[j] < scores[minIndex]) {
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j] < arr[minIndex]) {
                     minIndex = j;
                 }
             }
-            // Swap with first unsorted element
-            int temp = scores[i];
-            scores[i] = scores[minIndex];
-            scores[minIndex] = temp;
+            int temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
         }
     }
 
     public static void main(String[] args) {
-        int[] scores = {88, 45, 92, 67, 73, 100, 55};
+        int[] scores = {88, 65, 92, 70, 77};
         System.out.println("Before: " + Arrays.toString(scores));
-        sort(scores);
-        System.out.println("After:  " + Arrays.toString(scores));
+        selectionSort(scores);
+        System.out.println("After: " + Arrays.toString(scores));
     }
 }

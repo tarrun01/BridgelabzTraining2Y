@@ -1,54 +1,48 @@
-# BridgeLabz Training 2Y
+# Sorting Algorithms - BridgeLabz Training 2Y
 
-This is my BridgeLabz training repository. I keep each module in a separate
-branch, while the `main` branch contains only this README as an index of my
-work.
+This `Sorting` branch contains my solutions for the Sorting Algorithms assignment.
+Each program sorts a small sample array and prints before / after.
 
-I update this index whenever I add or modify a branch so that it shows the
-latest folder titles and filenames.
-
-## Repository Branches
-
-- `Array`
-- `Strings`
-- `Searching-And-Sorting`
-- `Recursion`
-- `Linked-List`
-- `Stack`
-- `Queue`
-
-## Main Branch
+## Folder Structure
 
 ```text
-main
-└── README.md
+Sorting/
+├── README.md
+└── src/
+    └── com/
+        └── gla/
+            └── sorting/
+                ├── BubbleSortStudentMarks.java
+                ├── InsertionSortEmployeeIds.java
+                ├── MergeSortBookPrices.java
+                ├── QuickSortProductPrices.java
+                ├── SelectionSortExamScores.java
+                ├── HeapSortJobApplicants.java
+                └── CountingSortStudentAges.java
 ```
 
-## Array Branch
+## Programs
 
-The `Array` branch currently contains my DSA practice sheet solutions.
+1. `BubbleSortStudentMarks.java` - Bubble Sort student marks in ascending order. Compare neighbours and swap.
+2. `InsertionSortEmployeeIds.java` - Insertion Sort employee IDs. Insert each element into sorted part.
+3. `MergeSortBookPrices.java` - Merge Sort book prices (double). Divide, sort, merge.
+4. `QuickSortProductPrices.java` - Quick Sort product prices (double). Last element pivot, partition, recurse.
+5. `SelectionSortExamScores.java` - Selection Sort exam scores. Find minimum and swap.
+6. `HeapSortJobApplicants.java` - Heap Sort salary demands. Build max heap, extract one by one.
+7. `CountingSortStudentAges.java` - Counting Sort student ages (10-18). Count frequency and rebuild.
 
-```text
-Array/
-├── Section 1 - Pseudocode Problems/
-│   ├── PrimeCheck.java
-│   ├── NumberDigitReversal.java
-│   └── PseudocodeAnswers.txt
-│
-├── Section 2 - Flowchart Problems/
-│   ├── PrimeNumberFlowchart.md
-│   └── NumberDigitReversalFlowchart.md
-│
-├── Section 3 - Time Complexity Problems/
-│   ├── LinearSearchTimeComplexity.java
-│   ├── IterativeBinarySearchComplexity.java
-│   └── MergeSortTimeComplexity.java
-│
-└── Section 4 - Space Complexity Problems/
-    ├── LinearSearchSpaceComplexity.java
-    ├── BinarySearchSpaceComplexity.java
-    └── MergeSortSpaceComplexity.java
+## How to Run
+
+```bash
+# compile all
+javac $(find src/com/gla/sorting -name "*.java") -d out
+
+# run one example
+java -cp out com.gla.sorting.BubbleSortStudentMarks
+java -cp out com.gla.sorting.InsertionSortEmployeeIds
+java -cp out com.gla.sorting.MergeSortBookPrices
+java -cp out com.gla.sorting.QuickSortProductPrices
+java -cp out com.gla.sorting.SelectionSortExamScores
+java -cp out com.gla.sorting.HeapSortJobApplicants
+java -cp out com.gla.sorting.CountingSortStudentAges
 ```
-
-The remaining branch sections will be added here as I add assignments to those
-branches.

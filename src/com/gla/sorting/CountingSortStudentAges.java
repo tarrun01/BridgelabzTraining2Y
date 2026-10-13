@@ -2,47 +2,39 @@ package com.gla.sorting;
 
 import java.util.Arrays;
 
-/**
- * Counting Sort for student ages (typically 10-18).
- * Handles any generic min/max range by offsetting with the minimum value.
- */
 public class CountingSortStudentAges {
 
-    /** Sorts the array in ascending order using counting sort. */
-    public static void sort(int[] ages) {
-        if (ages == null || ages.length < 2) {
-            return;
-        }
-        // Find generic min and max
-        int min = ages[0];
-        int max = ages[0];
-        for (int age : ages) {
-            if (age < min) {
-                min = age;
+    public static void countingSort(int[] arr) {
+        int min = arr[0];
+        int max = arr[0];
+        // find min and max age
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
             }
-            if (age > max) {
-                max = age;
+            if (arr[i] > max) {
+                max = arr[i];
             }
         }
-        // Count occurrences, offset by min to support any range
         int[] count = new int[max - min + 1];
-        for (int age : ages) {
-            count[age - min]++;
+        for (int i = 0; i < arr.length; i++) {
+            count[arr[i] - min]++;
         }
-        // Write back in sorted order
-        int index = 0;
+        int k = 0;
+        // write back ages in order
         for (int i = 0; i < count.length; i++) {
             while (count[i] > 0) {
-                ages[index++] = i + min;
+                arr[k] = i + min;
+                k++;
                 count[i]--;
             }
         }
     }
 
     public static void main(String[] args) {
-        int[] ages = {15, 12, 18, 10, 14, 16, 12, 18, 11, 15};
+        int[] ages = {15, 12, 18, 10, 14, 12, 16};
         System.out.println("Before: " + Arrays.toString(ages));
-        sort(ages);
-        System.out.println("After:  " + Arrays.toString(ages));
+        countingSort(ages);
+        System.out.println("After: " + Arrays.toString(ages));
     }
 }

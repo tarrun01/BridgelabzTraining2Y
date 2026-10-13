@@ -2,51 +2,59 @@ package com.gla.sorting;
 
 import java.util.Arrays;
 
-/** Merge Sort for book prices (double[]). */
 public class MergeSortBookPrices {
 
-    /** Sorts the array in ascending order using merge sort. */
-    public static void sort(double[] prices) {
-        if (prices == null || prices.length < 2) {
-            return;
-        }
-        mergeSort(prices, 0, prices.length - 1);
-    }
-
-    private static void mergeSort(double[] arr, int left, int right) {
+    public static void mergeSort(double[] arr, int left, int right) {
         if (left < right) {
-            int mid = left + (right - left) / 2;
+            int mid = (left + right) / 2;
+            // sort both halves first
             mergeSort(arr, left, mid);
             mergeSort(arr, mid + 1, right);
             merge(arr, left, mid, right);
         }
     }
 
-    private static void merge(double[] arr, int left, int mid, int right) {
-        double[] temp = new double[right - left + 1];
-        int i = left, j = mid + 1, k = 0;
-        // Merge the two halves in sorted order
-        while (i <= mid && j <= right) {
-            if (arr[i] <= arr[j]) {
-                temp[k++] = arr[i++];
+    public static void merge(double[] arr, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        double[] temp1 = new double[n1];
+        double[] temp2 = new double[n2];
+        // copy data to temp arrays
+        for (int i = 0; i < n1; i++) {
+            temp1[i] = arr[left + i];
+        }
+        for (int j = 0; j < n2; j++) {
+            temp2[j] = arr[mid + 1 + j];
+        }
+        int i = 0;
+        int j = 0;
+        int k = left;
+        while (i < n1 && j < n2) {
+            if (temp1[i] <= temp2[j]) {
+                arr[k] = temp1[i];
+                i++;
             } else {
-                temp[k++] = arr[j++];
+                arr[k] = temp2[j];
+                j++;
             }
+            k++;
         }
-        while (i <= mid) {
-            temp[k++] = arr[i++];
+        while (i < n1) {
+            arr[k] = temp1[i];
+            i++;
+            k++;
         }
-        while (j <= right) {
-            temp[k++] = arr[j++];
+        while (j < n2) {
+            arr[k] = temp2[j];
+            j++;
+            k++;
         }
-        // Copy back to original array
-        System.arraycopy(temp, 0, arr, left, temp.length);
     }
 
     public static void main(String[] args) {
-        double[] prices = {499.99, 199.50, 349.00, 99.99, 599.49, 249.75};
+        double[] prices = {299.5, 149.0, 499.99, 99.50, 199.75};
         System.out.println("Before: " + Arrays.toString(prices));
-        sort(prices);
-        System.out.println("After:  " + Arrays.toString(prices));
+        mergeSort(prices, 0, prices.length - 1);
+        System.out.println("After: " + Arrays.toString(prices));
     }
 }
