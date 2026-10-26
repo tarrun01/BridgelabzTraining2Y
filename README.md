@@ -1,196 +1,115 @@
-# BridgeLabz Training 2Y
+# Recursion and Backtracking - BridgeLabz Training 2Y
 
-This is my BridgeLabz training repository. Each module lives in its own branch.
-The `main` branch contains only this README as an index.
+This `Recursion-and-backtracking` branch contains my written analysis and Java
+implementations for the Recursion and Backtracking assignment.
 
-## Repository Branches
-
-- `main` - index only
-- `Array` - DSA practice sheet + array programs
-- `Strings` - String API programs
-- `Sorting` - Sorting Algorithms assignment (7 programs)
-- `Searching` - Linear/Binary Search + String/File assignment (16 programs)
-- `Practic-Problems` - basic Java programs
-- `workshop` - Library Management workshop
-
-## Main Branch
+## Folder Structure
 
 ```text
-main
-└── README.md
-```
-
-## Array Branch
-
-```text
-Array/
+Recursion-and-backtracking/
 ├── README.md
 ├── .gitignore
-├── Array/
-│   ├── Section 1 - Pseudocode Problems/
-│   │   ├── PrimeCheck.java
-│   │   ├── NumberDigitReversal.java
-│   │   └── PseudocodeAnswers.txt
-│   ├── Section 2 - Flowchart Problems/
-│   │   ├── PrimeNumberFlowchart.md
-│   │   └── NumberDigitReversalFlowchart.md
-│   ├── Section 3 - Time Complexity Problems/
-│   │   ├── LinearSearchTimeComplexity.java
-│   │   ├── IterativeBinarySearchComplexity.java
-│   │   └── MergeSortTimeComplexity.java
-│   └── Section 4 - Space Complexity Problems/
-│       ├── LinearSearchSpaceComplexity.java
-│       ├── BinarySearchSpaceComplexity.java
-│       └── MergeSortSpaceComplexity.java
+├── docs/
+│   ├── Problem1-Recursion-Mechanics.md
+│   ├── Problem2-Backtracking-WordSearch.md
+│   └── Problem3-NQueens.md
 └── src/
     └── com/
         └── gla/
-            └── array/
-                ├── Level1/
-                │   ├── Copy2DTo1D.java
-                │   ├── FactorsArray.java
-                │   ├── FizzBuzzArray.java
-                │   ├── MeanHeightFootball.java
-                │   ├── MultiplicationTable6To9.java
-                │   ├── MultiplicationTableArray.java
-                │   ├── NumberAnalysis.java
-                │   ├── OddEvenArrays.java
-                │   ├── StoreNumbersWithLimit.java
-                │   └── StudentVotingEligibility.java
-                └── Level2/
-                    ├── BMICalculator2D.java
-                    ├── BMICalculatorMultiple.java
-                    ├── DigitFrequency.java
-                    ├── EmployeeBonusCalculator.java
-                    ├── LargestSecondLargestDigit.java
-                    ├── LargestSecondLargestDigitDynamic.java
-                    ├── ReverseNumber.java
-                    ├── StudentGradeCalculator2D.java
-                    ├── StudentGradeCalculatorArray.java
-                    └── YoungestTallestFriendArray.java
+            └── recursion/
+                ├── DirectorySizeCalculator.java
+                ├── WordSearchBacktracking.java
+                └── NQueensOptimized.java
 ```
 
-## Strings Branch
+## Written Answers
+
+1. [Problem 1 - Understanding Recursion Mechanics](docs/Problem1-Recursion-Mechanics.md)
+   - Recursive directory-size pseudocode, call-stack trace, `O(F + D)` time,
+     iterative stack version, symbolic-link cycle handling.
+2. [Problem 2 - Backtracking Template Application](docs/Problem2-Backtracking-WordSearch.md)
+   - Word-search state/choice/constraint/goal template, decision tree for
+     `DREAM`, full trace, `O(N*M*8^L)` analysis, all-paths variant.
+3. [Problem 3 - N-Queens Optimization and Variants](docs/Problem3-NQueens.md)
+   - Search-space sizes, 1D array + diagonal tracking, N=4 trace,
+     first-solution optimizations, forbidden-squares variant.
+
+## Programs
+
+1. `DirectorySizeCalculator.java` - Models the assignment's `project/` tree and
+   computes its size recursively with a printed call trace (380 KB). Also has
+   an iterative stack version and a `docs/loop -> project` symlink cycle demo.
+2. `WordSearchBacktracking.java` - Searches the 4x4 letter grid for `DREAM`.
+   Prints the decision trace and all three valid paths. Direction order is
+   `NW, N, NE, W, E, SW, S, SE`.
+3. `NQueensOptimized.java` - Optimized N-Queens using a 1D queen array and
+   three attack-tracking arrays. Finds all 92 solutions for 8-Queens in 2,057
+   search nodes, finds a single solution with early exit, traces N=4, and
+   supports forbidden squares.
+
+## How to Run
+
+```bash
+# compile all programs
+javac $(find src -name "*.java") -d out
+
+# Problem 1
+java -cp out com.gla.recursion.DirectorySizeCalculator
+
+# Problem 2
+java -cp out com.gla.recursion.WordSearchBacktracking
+
+# Problem 3
+java -cp out com.gla.recursion.NQueensOptimized
+```
+
+## Quick Answers
+
+| Problem | Main result |
+|---|---|
+| 1 | Total directory size = **380 KB**. Every file and directory is visited once, so time is `Θ(F + D)`; recursion uses `O(H)` stack space. An explicit stack makes it iterative. A canonical-path set (or `FileSystemLoopException` handling) prevents symlink cycles. |
+| 2 | `DREAM` can be formed in **3 ways** on the given grid. First solution: `D(2,0) -> R(1,1) -> E(1,2) -> A(1,3) -> M(2,3)`. Worst case `O(N*M*8^L)` time and `O(N*M + L)` space. |
+| 3 | 8-Queens: `C(64,8) ≈ 4.4×10^9` unrestricted placements, `8^8 = 16,777,216` with one queen per row, but only **2,057** nodes with backtracking (92 solutions). The optimized solver uses `O(N)` space. N=4 first solution is `[1, 3, 0, 2]`. |
+
+## Key Ideas
+
+### Recursion
+
+Every recursive solution needs:
+
+1. **Base case(s)** - inputs small enough to answer directly (a file is a
+   leaf; an empty directory is 0).
+2. **Recursive case** - break the problem into smaller instances of the same
+   problem (sum the children of a directory).
+3. **Progress** - each call must move towards a base case (a file cannot have
+   children; a cycle guard stops re-entering a directory).
+4. **Combine** - use the returned values (`total += childSize`).
+5. **Unwind** - remove the node from the path after the children are done.
+
+Common pitfalls: forgetting the base case, mutating shared state without
+restoring it, and infinite recursion from cycles.
+
+### Backtracking
+
+The general template used in Problems 2 and 3:
 
 ```text
-Strings/
-├── README.md
-├── .gitignore
-└── src/
-    └── com/
-        └── gla/
-            └── stringapi/
-                ├── Level1/
-                │   ├── ArrayIndexOutOfBoundsExceptionDemo.java
-                │   ├── CompareStringsCharAt.java
-                │   ├── ConvertToLowerCase.java
-                │   ├── ConvertToUpperCase.java
-                │   ├── IllegalArgumentExceptionDemo.java
-                │   ├── NullPointerExceptionDemo.java
-                │   ├── NumberFormatExceptionDemo.java
-                │   ├── StringIndexOutOfBoundsExceptionDemo.java
-                │   ├── StringToCharArray.java
-                │   └── SubstringCharAt.java
-                ├── Level2/
-                │   ├── CharacterTypeDisplay.java
-                │   ├── RockPaperScissors.java
-                │   ├── ShortestLongestWord.java
-                │   ├── SplitTextIntoWords.java
-                │   ├── StringLengthWithoutMethod.java
-                │   ├── StudentScorecard.java
-                │   ├── StudentVotingRandom.java
-                │   ├── TrimSpaces.java
-                │   ├── VowelConsonantCounter.java
-                │   └── WordsWithLengths.java
-                └── Level3/
-                    ├── AnagramChecker.java
-                    ├── BMICalculatorTeam.java
-                    ├── CharFrequencyASCII.java
-                    ├── CharFrequencyNestedLoop.java
-                    ├── CharFrequencyUniqueChars.java
-                    ├── DeckOfCards.java
-                    ├── FirstNonRepeatingChar.java
-                    ├── MonthCalendar.java
-                    ├── PalindromeChecker3Methods.java
-                    └── UniqueCharacterFinder.java
+backtrack(state):
+    if goal(state): record/return
+    for choice in choices(state):
+        if valid(choice):
+            apply(choice)
+            backtrack(nextState)
+            undo(choice)          # restore state exactly
 ```
 
-## Sorting Branch
+- **State** must describe the partial solution.
+- **Choices** are the possible next moves.
+- **Constraints** prune invalid moves early.
+- **Goal** decides when a complete solution is found.
+- **Undo** is what makes the search space a tree instead of an ever-growing
+  path.
 
-```text
-Sorting/
-├── README.md
-└── src/
-    └── com/
-        └── gla/
-            └── sorting/
-                ├── BubbleSortStudentMarks.java
-                ├── InsertionSortEmployeeIds.java
-                ├── MergeSortBookPrices.java
-                ├── QuickSortProductPrices.java
-                ├── SelectionSortExamScores.java
-                ├── HeapSortJobApplicants.java
-                └── CountingSortStudentAges.java
-```
-
-## Searching Branch
-
-```text
-Searching/
-├── README.md
-└── src/
-    └── com/
-        └── gla/
-            └── searching/
-                ├── stringbuilder/
-                │   ├── ReverseStringBuilder.java
-                │   └── RemoveDuplicatesStringBuilder.java
-                ├── stringbuffer/
-                │   ├── ConcatenateStringsStringBuffer.java
-                │   └── CompareStringBufferBuilder.java
-                ├── filereader/
-                │   ├── ReadFileLineByLine.java
-                │   └── CountWordOccurrence.java
-                ├── inputstreamreader/
-                │   ├── ByteToCharStreamDemo.java
-                │   └── UserInputToFile.java
-                ├── linear/
-                │   ├── FirstNegativeNumber.java
-                │   └── SearchWordInSentences.java
-                ├── binary/
-                │   ├── RotationPointFinder.java
-                │   ├── PeakElementFinder.java
-                │   ├── SearchIn2DMatrix.java
-                │   └── FirstLastOccurrence.java
-                └── challenge/
-                    ├── StringAndFileChallenge.java
-                    └── MissingPositiveAndTargetSearch.java
-```
-
-## Practic-Problems Branch
-
-```text
-Practic-Problems/
-├── .gitignore
-└── basic-programs/
-    ├── Add.java
-    ├── Area_of_circle.java
-    ├── Average_Of_Three.java
-    ├── Hello_Bridgelabz.java
-    ├── Power_Calculation.java
-    ├── Temp_Conversion.java
-    ├── intrest_calculator.java
-    ├── kmtomiles_converter.java
-    ├── parimeter_of_rectangle.java
-    └── volume_of_cylinder.java
-```
-
-## Workshop Branch
-
-```text
-workshop/
-├── README.md
-└── src/
-    ├── LibraryManagementSystem.java
-    └── README.md
-```
+Backtracking is still exponential in the worst case, but the constraints
+usually remove most of the tree (for example, 8-Queens drops from `8^8` to
+2,057 nodes).
