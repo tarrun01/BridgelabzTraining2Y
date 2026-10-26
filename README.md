@@ -10,6 +10,7 @@ The `main` branch contains only this README as an index.
 - `Strings` - String API programs
 - `Sorting` - Sorting Algorithms assignment (7 programs)
 - `Searching` - Linear/Binary Search + String/File assignment (16 programs)
+- `Recursion-and-backtracking` - Recursion + Backtracking assignment (directory size, word search, N-Queens)
 - `Practic-Problems` - basic Java programs
 - `workshop` - Library Management workshop
 
@@ -165,6 +166,25 @@ Searching/
                 └── challenge/
                     ├── StringAndFileChallenge.java
                     └── MissingPositiveAndTargetSearch.java
+```
+
+## Recursion and Backtracking Branch
+
+```text
+Recursion-and-backtracking/
+├── README.md
+├── .gitignore
+├── docs/
+│   ├── Problem1-Recursion-Mechanics.md
+│   ├── Problem2-Backtracking-WordSearch.md
+│   └── Problem3-NQueens.md
+└── src/
+    └── com/
+        └── gla/
+            └── recursion/
+                ├── DirectorySizeCalculator.java
+                ├── WordSearchBacktracking.java
+                └── NQueensOptimized.java
 ```
 
 ## Practic-Problems Branch
